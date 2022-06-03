@@ -1,2 +1,2 @@
 # dc-scraper
-Script in python per estrarre dal web metadati descrittivi in standard Dublin Core 
+Script in python per estrarre in modo semi-automatico i metadati descrittivi, codificati in standard Dublin Core, di siti e pagine web 
