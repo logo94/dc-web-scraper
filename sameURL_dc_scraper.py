@@ -105,8 +105,6 @@ with open('file.csv', 'w+', encoding='utf8', newline='') as f:  # w: scrivi, w+:
                 rights = soup.find('', class_='').text
             except:
                 print("")
-            
-            source = host
 
             metadata = [
                 link, 
@@ -116,7 +114,7 @@ with open('file.csv', 'w+', encoding='utf8', newline='') as f:  # w: scrivi, w+:
                 creator,
                 pub,
                 rights,
-                source,
+                host,
                 ]
 
             thewriter.writerow(metadata) # i valori dei campi Dublin Core vengono aggiunti pagina per pagina, riga per riga
