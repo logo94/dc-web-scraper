@@ -25,7 +25,7 @@ random_user_agent = random.choice(user_agents)
 
 headers = {
     'User-Agent': random_user_agent,
-    'lang':'it-IT'
+    'lang': 'it-IT'
 }
 
 with open(file, 'r') as csv_file:
@@ -42,10 +42,10 @@ with open(file, 'r') as csv_file:
         header = ['Identifier', 'Title', 'Creator', 'Publisher', 'Date', 'Description', 'Language', 'Subjects', 'Type', 'Relation', 'Rights', 'Source', 'PDF', 'DOI']
         thewriter.writerow(header) 
 
-        for row in tqdm(reader, total=num_lines, desc=file.split('.')[0], bar_format='{l_bar}{bar} {n_fmt}/{total_fmt} [{rate_fmt}{postfix} ]'):
+        for row in tqdm(reader, total=num_lines, desc=file.split('.')[0], bar_format='{l_bar}{bar} {n_fmt}/{total_fmt} [~{remaining}{postfix}]'):
 
             try:
-                page = requests.get(row[0], headers=headers)   
+                page = requests.get(row[0], headers=headers, timeout=3)   
             except:
                 pass
             
