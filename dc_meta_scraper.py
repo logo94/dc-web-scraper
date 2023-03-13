@@ -31,9 +31,10 @@ headers = {
 with open(file, 'r') as csv_file:
 
     num_lines = sum(1 for line in open(file,'r'))
+    folder_path = file.rsplit("/", 1)[0]
     file = file.split("/")[-1]
     file_name = file.split(".")[0]
-    txt_file = file_name + "_document_metadata.csv"
+    txt_file = folder_path + "/" + file_name + "_document_metadata.csv"
     reader = reader(csv_file)
 
     with open(txt_file, 'w+', encoding='utf8', newline='') as f:
