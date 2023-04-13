@@ -89,6 +89,11 @@ with open(file, 'r') as csv_file:
                 except: title = ""
             if title == "":
                 try:
+                    title = [title['content'] for title in soup.find_all("meta", attrs={'name':'dc.title'})]
+                    title = ", ".join(title)               
+                except: title = ""
+            if title == "":
+                try:
                     title = [title['content'] for title in soup.find_all("meta", attrs={'name':'dcterms.title'})]
                     title = ", ".join(title)               
                 except: title = ""
@@ -129,6 +134,11 @@ with open(file, 'r') as csv_file:
             if creator == "":
                 try:
                     creator = [creator['content'] for creator in soup.find_all("meta", attrs={'name':'DC.creator'})]
+                    creator = ", ".join(creator)
+                except: creator = ""
+            if creator == "":
+                try:
+                    creator = [creator['content'] for creator in soup.find_all("meta", attrs={'name':'dc.creator'})]
                     creator = ", ".join(creator)
                 except: creator = ""
             if creator == "":
@@ -180,6 +190,11 @@ with open(file, 'r') as csv_file:
                 except: publisher = ""
             if publisher == "":
                 try:
+                    publisher = [publisher['content'] for publisher in soup.find_all("meta", attrs={'name':'dc.publisher'})]
+                    publisher = ", ".join(publisher)
+                except: publisher = ""
+            if publisher == "":
+                try:
                     publisher = [publisher['content'] for publisher in soup.find_all("meta", attrs={'name':'dcterms.publisher'})]
                     publisher = ", ".join(publisher)
                 except: publisher = ""
@@ -220,6 +235,10 @@ with open(file, 'r') as csv_file:
                 except: date = ""
             if date == "":
                 try:
+                    date = soup.find("meta", attrs={'name':'dc.date'})['content']
+                except: date = ""
+            if date == "":
+                try:
                     date = soup.find("meta", attrs={'name':'dcterms.date'})['content']
                 except: date = ""
             if date == "":
@@ -256,6 +275,10 @@ with open(file, 'r') as csv_file:
             if description == "":
                 try:
                     description = soup.find("meta", attrs={'name':'DC.description', 'xml:lang':'it'})['content'].replace("&#xD;&#xA;", " ").replace("\r\n", " ").strip()
+                except: description = ""
+            if description == "":
+                try:
+                    description = soup.find("meta", attrs={'name':'dc.description', 'xml:lang':'it'})['content'].replace("&#xD;&#xA;", " ").replace("\r\n", " ").strip()
                 except: description = ""
             if description == "":
                 try:
@@ -306,6 +329,10 @@ with open(file, 'r') as csv_file:
                 except: language = ""
             if language == "":
                 try:
+                    language = soup.find("meta", attrs={'name':'dc.Language'})['content'].strip()
+                except: language = ""
+            if language == "":
+                try:
                     language = soup.find("meta", attrs={'name':'DC.Language'})['content'].strip()
                 except: language = ""
             if language == "":
@@ -351,6 +378,12 @@ with open(file, 'r') as csv_file:
                     subject = ""
             if subject == "":
                 try:
+                    subject = [subject['content'] for subject in soup.find_all("meta", attrs={'name':'dc.subject'})]
+                    subject = ", ".join(subject)
+                except:
+                    subject = ""
+            if subject == "":
+                try:
                     subject = [subject['content'] for subject in soup.find_all("meta", attrs={'name':'DC.subject'})]
                     subject = ", ".join(subject)
                 except:
@@ -376,6 +409,11 @@ with open(file, 'r') as csv_file:
             if dc_type == "":
                 try:
                     dc_type = soup.find("meta", attrs={'name':'DC.type'})['content'].strip()
+                except:
+                    dc_type = ""
+            if dc_type == "":
+                try:
+                    dc_type = soup.find("meta", attrs={'name':'dc.type'})['content'].strip()
                 except:
                     dc_type = ""
             if dc_type == "":
@@ -442,6 +480,12 @@ with open(file, 'r') as csv_file:
                     rights = ""
             if rights == "":
                 try:
+                    rights = [rights['content'] for rights in soup.find_all("meta", attrs={'name':'dc.rights'})]
+                    rights = ", ".join(rights)
+                except:
+                    rights = ""
+            if rights == "":
+                try:
                     rights = [rights['content'] for rights in soup.find_all("meta", attrs={'name':'dcterms.rights'})]
                     rights = ", ".join(rights)
                 except:
@@ -462,6 +506,10 @@ with open(file, 'r') as csv_file:
             if source == "":
                 try:
                     source = soup.find("meta", attrs={'name':'DC.source'})['content'].strip()
+                except: source = ""
+            if source == "":
+                try:
+                    source = soup.find("meta", attrs={'name':'dc.source'})['content'].strip()
                 except: source = ""
             if source == "":
                 source = row[1]
