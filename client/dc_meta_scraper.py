@@ -10,23 +10,28 @@ from tqdm import tqdm
 
 root = tk.Tk()
 root.withdraw()
-
 file = filedialog.askopenfilename()
 
-user_agents = [
-    "Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0"
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
-    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36"
-    "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"
-]
-
-random_user_agent = random.choice(user_agents)
-
-headers = {
-    'User-Agent': random_user_agent,
-    'lang': 'it-IT'
-}
+def docReq(url):
+    user_agents = [
+        "Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36"
+        "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"
+    ]
+    random_user_agent = random.choice(user_agents)
+    headers = {
+        'User-Agent': random_user_agent,
+        'lang': 'it-IT',
+        'Connection': 'Close'
+    }
+    try:
+        page = requests.request("GET", url, headers=headers, timeout=3)
+    except:
+        raise Exception()
+    soup = bs(page.text, 'html.parser')
+    return soup
 
 with open(file, 'r') as csv_file:
 
@@ -44,16 +49,9 @@ with open(file, 'r') as csv_file:
         thewriter.writerow(header) 
 
         for row in tqdm(reader, total=num_lines, desc=file.split('.')[0], bar_format='{l_bar}{bar} {n_fmt}/{total_fmt} [~{remaining}{postfix}]'):
-
-            try:
-                page = requests.get(row[0], headers=headers, timeout=3)   
-            except:
-                pass
             
             try:
-                if page.status_code != 200:   
-                    continue
-                soup = bs(page.text, 'html.parser')
+                soup = docReq(row[0])
             except:
                 continue
             
