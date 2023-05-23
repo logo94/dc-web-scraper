@@ -9,7 +9,10 @@ import os
 
 crawl_ID = input("Crawl_ID:")
 
-load_dotenv(find_dotenv())
+try:
+    load_dotenv(find_dotenv())
+except:
+    print("File .env mancante")
 
 def apiReq(crawl_ID, api_key):
     url = "https://partner.archive-it.org/api/reports/crawled-detail/" + crawl_ID + "?format=csv&mimetype=text/html"
