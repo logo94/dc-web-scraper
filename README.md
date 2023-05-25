@@ -40,12 +40,14 @@ Una volta scaricato il repository e scaricate le librerie necessarie, per avviar
 ```
 python nome_file.py
 ```
-Per la versione client (GUI) è sufficiente eseguire il comando e si aprirà una finestra di sistema per la selezione del file da processare;
+Per la versione client (GUI) si aprirà una finestra di sistema per la selezione del file da processare;
 
-Per la versione server (CLI) oltre al nome dello script sarà necessario riportare, a fianco dello script, il path del file da processare, per esempio:
-```
-python nome_file.py test.xlsx
-```
-Si consiglia di tenere tutti i file da processare all'interno di una cartella, per esempio `/input`, per avviare lo script si potrà quindi procedere con il comando `python nome_file.py input/test.xlsx`
+La versione server (CLI) comunica direttamente con l'API di Archive-it, è quindi necessario disporre di un account Archive-it e del relativo token di accesso. 
 
-All'interno della stessa cartella comparirà un file omonimo al file processato con l'aggiunta `_document_metadata`
+Una volta installate le librerie e modificato il file `.env` inserendo il proprio token, sarà sufficiente lanciare lo script
+```
+python arcapi.py
+```
+una volta avviato verrà chiesto di inserire il Crawl_ID in modo da accedere al relativo Crawl Report e scaricare automaticamente gli URL da processare. 
+
+Una volta completata l'operazione, all'interno della stessa cartella verrà creato un file `Crawl_ID_document_metadata.csv` contenente i metadati inclusi nei metatags dei siti archiviati.
